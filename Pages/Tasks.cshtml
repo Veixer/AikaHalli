@@ -3,3 +3,50 @@
 @{
 	ViewData["Title"] = "Tehtävät";
 }
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<form id="task" asp-page="Tasks" method="post">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Tehtävän Id</th>
+							<th>Tehtävän Nimi</th>
+							<th>Tehtävän Kuvaus</th>
+							<th>Tallenna/Poista</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td><input type="text" asp-for="NewItem.TaskName" class="form-control"/></td>
+							<td><input type="text" asp-for="NewItem.TaskDescription" class="form-control"/></td>
+							<td><button type="submit" asp-page-handler="AddNewUserTask" class="btn btn-primary">Lisää</button></td>
+						</tr>
+						@if (Model.Items is not null)
+						{
+							for (int i = 0; i < Model.Items.Count; i++)
+							{
+								<tr>
+									<td>@Model.Items[i].TaskId</td>
+									<td><input asp-for="@Model.Items[i].TaskName" type="text" value="@Model.Items[i].TaskName" class="form-control" name="Items[@Model.Items[i].TaskId].TaskName" /></td>
+									<td><input asp-for="@Model.Items[i].TaskDescription" type="text" value="@Model.Items[i].TaskDescription" class="form-control" name="Items[@Model.Items[i].TaskId].TaskDescription" /></td>
+									<td>
+										<div class="row btn-group flex-nowrap">
+											<button type="submit" asp-page-handler="UpdateUserTask" asp-route-id="@Model.Items[i].TaskId" class="btn btn-success"><i class="bi-check-circle"></i></button>
+											<button type="submit" asp-page-handler="DeleteUserTask" asp-route-id="@Model.Items[i].TaskId" class="btn btn-danger"><i class="bi-trash3"></i></button>
+										</div>
+										
+									</td>
+								</tr>
+							}
+						}
+						
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<div class="col-sm-6"></div>
+	</div>	
+</div>

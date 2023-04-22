@@ -12,7 +12,7 @@ namespace AikaHalli.Pages
 			_logger = logger;
 		}
 
-		public void OnGet()
+		public void OnGetAsync()
 		{
 
 		}

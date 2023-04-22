@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace AikaHalli.Data
 {
-    public partial class Task
+    public partial class UserTask
     {
-        public Task()
+        public UserTask()
         {
             TimeEntries = new HashSet<TimeEntry>();
         }

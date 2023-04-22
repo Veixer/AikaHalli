@@ -17,7 +17,7 @@ namespace AikaHalli.Data
         {
         }
 
-        public virtual DbSet<Task> Tasks { get; set; } = null!;
+        public virtual DbSet<UserTask> UserTasks { get; set; } = null!;
         public virtual DbSet<TimeEntry> TimeEntries { get; set; } = null!;
 
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,8 +31,10 @@ namespace AikaHalli.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Task>(entity =>
+            modelBuilder.Entity<UserTask>(entity =>
             {
+                entity.HasKey(e => e.TaskId)
+                    .HasName("PK__UserTask__7C6949B1544D1C96");
                 entity.Property(e => e.TaskDescription).HasMaxLength(255);
 
                 entity.Property(e => e.TaskName).HasMaxLength(255);
@@ -43,7 +45,7 @@ namespace AikaHalli.Data
             modelBuilder.Entity<TimeEntry>(entity =>
             {
                 entity.HasKey(e => e.EntryId)
-                    .HasName("PK__TimeEntr__F57BD2F7477F2EA5");
+                    .HasName("PK__TimeEntr__F57BD2F7DBB8FD93");
 
                 entity.Property(e => e.EndTime).HasColumnType("datetime");
 
@@ -55,7 +57,7 @@ namespace AikaHalli.Data
 
                 entity.Property(e => e.UserId).HasMaxLength(450);
 
-                entity.HasOne(d => d.Task)
+                entity.HasOne(d => d.UserTask)
                     .WithMany(p => p.TimeEntries)
                     .HasForeignKey(d => d.TaskId)
                     .HasConstraintName("FK_Tasks_TimeEntries");

@@ -1,13 +1,17 @@
 using AikaHalli.Data;
+using AikaHalli.Repository;
+using AikaHalli.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-	options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -28,6 +32,12 @@ builder.Services.Configure<IdentityOptions>(options =>
 	options.SignIn.RequireConfirmedAccount = false;
 	options.SignIn.RequireConfirmedPhoneNumber = false;
 });
+
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
+		options.UseSqlServer(connectionString));
+builder.Services.AddScoped<IAikaHalliRepository, AikaHalliRepository>();
+builder.Services.AddScoped<IAikaHalliService, AikaHalliService>();
+
 
 var app = builder.Build();
 

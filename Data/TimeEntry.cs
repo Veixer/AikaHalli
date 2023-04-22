@@ -14,6 +14,6 @@ namespace AikaHalli.Data
         public DateTime? EntryDate { get; set; }
         public string? Notes { get; set; }
 
-        public virtual Task? Task { get; set; }
+        public virtual UserTask? UserTask { get; set; }
     }
 }
