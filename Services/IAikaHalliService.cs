@@ -1,4 +1,5 @@
 ﻿using AikaHalli.Data;
+using AikaHalli.Models;
 
 namespace AikaHalli.Services
 {
@@ -76,12 +77,12 @@ namespace AikaHalli.Services
 		/// </summary>
 		/// <returns></returns>
 		/// <param name="userId">UserId</param>
-		public Task DownloadUserTaskDurations(string userId);
+		//public Task DownloadUserTaskDurations(string userId);
 
 		/// <summary>
 		/// </summary>
 		/// <returns></returns>
 		/// <param name="userId">UserId</param>
-		public Task<List<TimeEntry>> GetUserTasksAndDurations(string userId);
+		public Task<List<TaskDuration>> GetUserTasksAndDurations(string userId);
 	}
 }

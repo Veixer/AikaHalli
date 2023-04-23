@@ -150,7 +150,7 @@ namespace AikaHalli.Repository
 		public async Task<List<TaskDuration>> GetUserTasksAndDurations(string userId)
 		{
 			using var context = _appContextFactory.CreateDbContext();
-			var timeEntries = await context.TimeEntries.Where(a => a.UserId == userId).GroupBy(x => x.TaskId).Select(y => new  TaskDuration { TaskId = (int)y.Key, Duration = (int)y.Sum(z => z.Duration) }).ToListAsync();
+			var timeEntries = await context.TimeEntries.Where(a => a.UserId == userId && a.TaskId != null).GroupBy(x => x.TaskId).Select(y => new  TaskDuration { TaskId = (int)y.Key, Duration = y.Sum(z => z.Duration ?? 0) }).ToListAsync();
 
 			return timeEntries;
 		}

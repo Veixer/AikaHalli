@@ -1,8 +1,58 @@
-﻿@page
+﻿@page "/Raportit"
 @model AikaHalli.Pages.ReportsModel
 @{
 	ViewData["Title"] = "Raportit";
 }
 
 <div class="container">
+	<div class="row">
+		<h1>Raportit</h1>
+		<p>Täällä pääset tarkastelemaan ja lataamaan raportteja. Tällä hetkellä saatavilla on sinun tehtäviin käytetty aika minuutteina.</p>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<div class="row">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Tehtävän Id</th>
+							<th>Tehtävään käytetty aika (minuutteina)</th>
+							<th>Tehtävään käytetty aika (hh:mm:ss)</th>
+						</tr>
+					</thead>
+					<tbody>
+						@if (Model.Items is not null)
+						{
+							foreach (var task in Model.Items)
+							{
+								<tr>
+									<td>@task.TaskId</td>
+									<td>@task.Duration</td>
+									<td>@Model.ParseMinutesToTime(task.Duration)</td>
+								</tr>
+							}
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-6">
+			<form id="reports" asp-page="Reports" method="post">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Latausvaihtoehdot</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>CSV-tiedosto</td>
+							<td><button type="submit" asp-page-handler="DownloadCsv" class="btn btn-primary"><i class="bi-download"></i></button></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
 </div>

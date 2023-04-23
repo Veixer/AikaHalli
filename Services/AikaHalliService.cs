@@ -103,12 +103,12 @@ namespace AikaHalli.Services
 		}
 
 		/// <inheritdoc/>
-		public async Task DownloadUserTaskDurations(string userId)
-		{
-			var taskDurationsList = await _aikaHalliRepository.GetUserTasksAndDurations(userId);
+		//public async Task DownloadUserTaskDurations(string userId)
+		//{
+		//	var taskDurationsList = await _aikaHalliRepository.GetUserTasksAndDurations(userId);
 
-			// download csv
-		}
+		//	// download csv
+		//}
 
 		private bool HasChanges(UserTask userTask1, UserTask userTask2)
 		{
