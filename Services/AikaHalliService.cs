@@ -1,4 +1,5 @@
 ﻿using AikaHalli.Data;
+using AikaHalli.Models;
 using AikaHalli.Repository;
 using System.Threading.Tasks;
 
@@ -50,12 +51,20 @@ namespace AikaHalli.Services
 			return await _aikaHalliRepository.GetAllUserTimeEntries(userId);
 		}
 
+		/// <inheritdoc/>
+		public async Task<List<TimeEntry>> GetAllUserTimeEntriesToday(string userId)
+		{
+			return await _aikaHalliRepository.GetAllUserTimeEntriesToday(userId);
+		}
+
+		/// <inheritdoc/>
 		public async Task AddTimeEntry(TimeEntry timeEntry)
 		{
 			HandleTimeEntry(timeEntry);
 			await _aikaHalliRepository.AddTimeEntry(timeEntry);
 		}
 
+		/// <inheritdoc/>
 		public async Task<List<int>> GetAllUserTasksIdList(string userId)
 		{
 			var userTasks = await GetAllUserTasks(userId);
@@ -64,19 +73,41 @@ namespace AikaHalli.Services
 			return userTaskIdList;
 		}
 
+		/// <inheritdoc/>
 		public async Task UpdateTimeEntry(int entryId, TimeEntry updatedTimeEntry)
 		{
 			HandleTimeEntry(updatedTimeEntry);
 			var originalUserTask = _aikaHalliRepository.GetTimeEntry(entryId).Result;
 			if (originalUserTask != null && HasChanges(originalUserTask, updatedTimeEntry))
 			{
-				_aikaHalliRepository.UpdateTimeEntry(entryId, updatedTimeEntry);
+				await _aikaHalliRepository.UpdateTimeEntry(entryId, updatedTimeEntry);
 			}
-		}		
+		}
 
+		/// <inheritdoc/>
+		public async Task<TimeEntry> GetCurrentTimeEntry(string userId)
+		{
+			return await _aikaHalliRepository.GetCurrentTimeEntry(userId);
+		}
+
+		/// <inheritdoc/>
 		public async Task DeleteTimeEntry(int entryId)
 		{
 			await _aikaHalliRepository.DeleteTimeEntry(entryId);
+		}
+
+		/// <inheritdoc/>
+		public async Task<List<TaskDuration>> GetUserTasksAndDurations(string userId)
+		{
+			return await _aikaHalliRepository.GetUserTasksAndDurations(userId);
+		}
+
+		/// <inheritdoc/>
+		public async Task DownloadUserTaskDurations(string userId)
+		{
+			var taskDurationsList = await _aikaHalliRepository.GetUserTasksAndDurations(userId);
+
+			// download csv
 		}
 
 		private bool HasChanges(UserTask userTask1, UserTask userTask2)
@@ -104,8 +135,11 @@ namespace AikaHalli.Services
 
 		private TimeEntry HandleTimeEntry(TimeEntry te)
 		{
+			if (te.EndTime is not null)
+			{
+				te.Duration = CountMinutes(te.StartTime, te.EndTime);
+			}
 			
-			te.Duration = CountMinutes(te.StartTime, te.EndTime);
 			te.EntryDate = DateTime.Now;
 			
 			return te;
@@ -127,5 +161,7 @@ namespace AikaHalli.Services
 
 			return diffInt;
 		}
+
+		
 	}
 }

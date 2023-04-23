@@ -1,4 +1,5 @@
 ﻿using AikaHalli.Data;
+using AikaHalli.Models;
 
 namespace AikaHalli.Repository
 {
@@ -41,6 +42,12 @@ namespace AikaHalli.Repository
 		/// <param name="userId">UserId</param>
 		public Task<List<TimeEntry>> GetAllUserTimeEntries(string userId);
 
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
+		/// <param name="userId">UserId</param>
+		public Task<List<TimeEntry>> GetAllUserTimeEntriesToday(string userId);
+
 		///<summary>
 		///</summary>
 		///<returns></returns>
@@ -65,5 +72,17 @@ namespace AikaHalli.Repository
 		///<returns></returns>
 		///<param name="entryId">Time Entry to be deleted</param>
 		public Task DeleteTimeEntry(int entryId);
+
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
+		/// <param name="userId">UserId</param>
+		public Task<TimeEntry> GetCurrentTimeEntry(string userId);
+
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
+		/// <param name="userId">UserId</param>
+		public Task<List<TaskDuration>> GetUserTasksAndDurations(string userId);
 	}
 }

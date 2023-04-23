@@ -35,6 +35,12 @@ namespace AikaHalli.Services
 		/// <param name="userId">UserId</param>
 		public Task<List<TimeEntry>> GetAllUserTimeEntries(string userId);
 
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
+		/// <param name="userId">UserId</param>
+		public Task<List<TimeEntry>> GetAllUserTimeEntriesToday(string userId);
+
 		///<summary>
 		///</summary>
 		///<returns></returns>
@@ -59,5 +65,23 @@ namespace AikaHalli.Services
 		///<returns></returns>
 		///<param name="entryId">Time Entryto be deleted</param>
 		public Task DeleteTimeEntry(int entryId);
+
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
+		/// <param name="userId">UserId</param>
+		public Task<TimeEntry> GetCurrentTimeEntry(string userId);
+
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
+		/// <param name="userId">UserId</param>
+		public Task DownloadUserTaskDurations(string userId);
+
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
+		/// <param name="userId">UserId</param>
+		public Task<List<TimeEntry>> GetUserTasksAndDurations(string userId);
 	}
 }

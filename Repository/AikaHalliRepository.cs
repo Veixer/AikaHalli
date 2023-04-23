@@ -1,4 +1,5 @@
 ﻿using AikaHalli.Data;
+using AikaHalli.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -80,6 +81,15 @@ namespace AikaHalli.Repository
 		}
 
 		/// <inheritdoc/>
+		public async Task<List<TimeEntry>> GetAllUserTimeEntriesToday(string userId)
+		{
+			using var context = _appContextFactory.CreateDbContext();
+			var timeEntries = await context.TimeEntries.Where(x => x.UserId == userId && (x.StartTime ?? DateTime.Today).Date == DateTime.Today).ToListAsync();
+
+			return timeEntries;
+		}
+
+		/// <inheritdoc/>
 		public async Task AddTimeEntry(TimeEntry timeEntry)
 		{
 			using var context = _appContextFactory.CreateDbContext();
@@ -88,6 +98,7 @@ namespace AikaHalli.Repository
 			await context.SaveChangesAsync();
 		}
 
+		/// <inheritdoc/>
 		public async Task<TimeEntry> GetTimeEntry(int entryId)
 		{
 			using var context = _appContextFactory.CreateDbContext();
@@ -96,6 +107,7 @@ namespace AikaHalli.Repository
 			return timeEntry;
 		}
 
+		/// <inheritdoc/>
 		public async Task UpdateTimeEntry(int entryId, TimeEntry updatedTimeEntry)
 		{
 			using var context = _appContextFactory.CreateDbContext();
@@ -113,6 +125,7 @@ namespace AikaHalli.Repository
 			await context.SaveChangesAsync();
 		}
 
+		/// <inheritdoc/>
 		public async Task DeleteTimeEntry(int entryId)
 		{
 			using var context = _appContextFactory.CreateDbContext();
@@ -122,6 +135,24 @@ namespace AikaHalli.Repository
 				context.TimeEntries.Remove(entryToRemove);
 			}
 			await context.SaveChangesAsync();
+		}
+
+		/// <inheritdoc/>
+		public async Task<TimeEntry> GetCurrentTimeEntry(string userId)
+		{
+			using var context = _appContextFactory.CreateDbContext();
+			var timeEntry = await context.TimeEntries.Where(x => x.UserId == userId && x.EndTime == null).FirstOrDefaultAsync();
+
+			return timeEntry;
+		}
+
+		/// <inheritdoc/>
+		public async Task<List<TaskDuration>> GetUserTasksAndDurations(string userId)
+		{
+			using var context = _appContextFactory.CreateDbContext();
+			var timeEntries = await context.TimeEntries.Where(a => a.UserId == userId).GroupBy(x => x.TaskId).Select(y => new  TaskDuration { TaskId = (int)y.Key, Duration = (int)y.Sum(z => z.Duration) }).ToListAsync();
+
+			return timeEntries;
 		}
 	}
 }
