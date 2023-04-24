@@ -9,7 +9,7 @@
 		<h1>Tehtävien hallinta</h1>
 		<p>Täällä pääset luomaan uusia tehtäviä ja muuttamaan tai poistamaan olemassa olevia tehtäviä.</p>
 	</div>
-	<div class="row">
+	<div class="row mt-5">
 		<div class="col-sm-12">
 			<form id="task" asp-page="Tasks" method="post">
 				<table class="table">
@@ -24,8 +24,8 @@
 					<tbody>
 						<tr>
 							<td></td>
-							<td><input type="text" asp-for="NewItem.TaskName" class="form-control"/></td>
-							<td><input type="text" asp-for="NewItem.TaskDescription" class="form-control"/></td>
+							<td><input type="text" asp-for="NewItem.TaskName" class="form-control"  maxlength="255"/></td>
+							<td><input type="text" asp-for="NewItem.TaskDescription" class="form-control"  maxlength="255"/></td>
 							<td><button type="submit" asp-page-handler="AddNewUserTask" class="btn btn-primary">Lisää</button></td>
 						</tr>
 						@if (Model.Items is not null)
@@ -34,8 +34,8 @@
 							{
 								<tr>
 									<td>@Model.Items[i].TaskId</td>
-									<td><input asp-for="@Model.Items[i].TaskName" type="text" value="@Model.Items[i].TaskName" class="form-control" name="Items[@Model.Items[i].TaskId].TaskName" /></td>
-									<td><input asp-for="@Model.Items[i].TaskDescription" type="text" value="@Model.Items[i].TaskDescription" class="form-control" name="Items[@Model.Items[i].TaskId].TaskDescription" /></td>
+									<td><input asp-for="@Model.Items[i].TaskName" type="text" value="@Model.Items[i].TaskName" class="form-control" name="Items[@Model.Items[i].TaskId].TaskName"  maxlength="255"/></td>
+									<td><input asp-for="@Model.Items[i].TaskDescription" type="text" value="@Model.Items[i].TaskDescription" class="form-control" name="Items[@Model.Items[i].TaskId].TaskDescription"  maxlength="255"/></td>
 									<td>
 										<div class="row btn-group flex-nowrap">
 											<button type="submit" asp-page-handler="UpdateUserTask" asp-route-id="@Model.Items[i].TaskId" class="btn btn-success"><i class="bi-check-circle"></i></button>

@@ -9,15 +9,15 @@
 		<h1>Raportit</h1>
 		<p>Täällä pääset tarkastelemaan ja lataamaan raportteja. Tällä hetkellä saatavilla on sinun tehtäviin käytetty aika minuutteina.</p>
 	</div>
-	<div class="row">
+	<div class="row mt-5">
 		<div class="col-6">
 			<div class="row">
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>Tehtävän Id / Nimi</th>
-							<th>Käytetty aika (minuutteina)</th>
-							<th>Käytetty aika (hh:mm:ss)</th>
+							<th>Käytetty aika (min)</th>
+							<th>Käytetty aika (hh:mm)</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,7 +47,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>CSV-tiedosto</td>
+							<td>Kaikki tehtävät, kaikilta ajoilta (.csv)</td>
 							<td><button type="submit" asp-page-handler="DownloadCsv" class="btn btn-primary"><i class="bi-download"></i></button></td>
 						</tr>
 					</tbody>

@@ -9,8 +9,8 @@
 		<h1>Ajanseuranta</h1>
 		<p>Täällä pääset suorittamaan ajanseurannan toimenpiteitä, kuten tehtävien aloitusta ja lopetusta.</p>
 	</div>
-	<div class="row">
-		<div class="col-4">
+	<div class="row mt-3 pb-5">
+		<div class="col-5">
 			<h5>Tehtävät</h5>
 			<table class="table table-striped table-sm">
 				<thead>
@@ -33,8 +33,9 @@
 				</tbody>
 			</table>			
 		</div>
-		<div class="col-2">
-			<strong>Aloita/Lopeta tehtävä</strong>
+		<civ class="col-2"></civ>
+		<div class="col-5">
+			<h5>Aloita/Lopeta tehtävä</h5>
 			<form id="timeEntryMgmt" asp-page="TimeTracker" method="post">
 				@if (Model.CurrentItem is null)
 				{
@@ -44,7 +45,8 @@
 						<div class="row">
 							<label asp-for="NewItem.TaskId">Tehtävän Id</label>
 							@*<select asp-for="NewItem.TaskId" asp-items="@Model.TaskIdList.Select(x => new SelectListItem{Text = x.ToString()})"></select>*@
-							<select asp-for="NewItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})"></select>
+							@*<select asp-for="NewItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})"></select>*@
+							<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" asp-for="NewItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})"></select>
 						</div>
 						<div class="row">
 							<label asp-for="NewItem.Notes">Muistiinpanot</label>
@@ -52,26 +54,29 @@
 						</div>
 						
 					}
-					<button type="submit" asp-page-handler="AddNewTimeEntry" class="btn btn-primary mt-2"><i class="bi-play-circle"></i></button>
+					<button type="submit" asp-page-handler="AddNewTimeEntry" class="btn btn-primary mt-2"><i class="bi-play-circle"></i> Aloita</button>
 				}
 				else
 				{
 					<div class="row">
 						<label asp-for="CurrentItem.TaskId">Tehtävän Id</label>
 						@*<input asp-for="CurrentItem.TaskId" type="text" value="@Model.CurrentItem.TaskId" class="form-control" name="Items[@Model.CurrentItem.TaskId].TaskId" disabled/>*@
-						<select asp-for="CurrentItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})" disabled></select>
+						<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" asp-for="CurrentItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})" disabled></select>
 					</div>
 					<div class="row">
-						<label asp-for="CurrentItem.Notes"></label>
+						<label asp-for="CurrentItem.Notes">Muistiinpanot</label>
 						<input asp-for="CurrentItem.Notes" type="text" value="@Model.CurrentItem.Notes" class="form-control" name="Items[@Model.CurrentItem.TaskId].TaskId" disabled />
 					</div>
 					
 					
-					<button type="submit" asp-page-handler="StopCurrentTimeEntry" class="btn btn-danger mt-2"><i class="bi-stop-btn"></i></button>
+					<button type="submit" asp-page-handler="StopCurrentTimeEntry" class="btn btn-danger mt-2"><i class="bi-stop-btn"></i> Lopeta</button>
 				}
 			</form>
 		</div>
-		<div class="col-6">
+		
+	</div>
+	<div class="row mt-5">
+		<div class="col-12">
 			<h5>Aikaleimat tänään</h5>
 			<table class="table table-striped table-sm">
 				<thead>

@@ -9,19 +9,19 @@
 		<h1>Aikaleimojen hallinta</h1>
 		<p>Täällä pääset tekemään uusia aikaleimoja ja muuttamaan tai poistamaan olemassa olevia aikaleimoja.</p>
 	</div>
-	<div class="row">
+	<div class="row mt-5">
 		<div class="col-sm-12">
 			<form id="timeEntry" asp-page="TimeEntries" method="post">
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Aikaleiman Id</th>
+							<th>Id</th>
 							<th>Tehtävän Nimi</th>
-							<th>Aikaleiman alkamisaika (Muodossa: "pp.kk.vvvv tt.mm.ss")</th>
-							<th>Aikaleiman loppumisaika (Muodossa: "pp.kk.vvvv tt.mm.ss")</th>
-							<th>Aikaleiman kesto (minuuteissa, pyöristetty)</th>
-							<th>Aikaleiman muokkauspvm</th>
-							<th>Aikaleiman lisätiedot</th>
+							<th>Alkamisaika</th>
+							<th>Loppumisaika </th>
+							<th>Kesto (min)</th>
+							<th>Muokkauspvm</th>
+							<th>Lisätiedot</th>
 							<th>Tallenna/Poista</th>
 						</tr>
 					</thead>
@@ -34,7 +34,7 @@
 							<td><input type="datetime-local" asp-for="NewItem.EndTime" class="form-control" /></td>
 							<td></td>
 							<td></td>
-							<td><input type="text" asp-for="NewItem.Notes" class="form-control" /></td>
+							<td><input type="text" asp-for="NewItem.Notes" class="form-control" maxlength="255" /></td>
 							<td><button type="submit" asp-page-handler="AddNewTimeEntry" class="btn btn-primary">Lisää</button></td>
 						</tr>
 						@if (Model.Items is not null)
@@ -56,7 +56,7 @@
 									<td><input asp-for="@Model.Items[i].EndTime" type="text" value="@Model.Items[i].EndTime" class="form-control" name="Items[@Model.Items[i].EntryId].EndTime" /></td>
 									<td><input asp-for="@Model.Items[i].Duration" type="text" value="@Model.Items[i].Duration" class="form-control" name="Items[@Model.Items[i].EntryId].Duration" disabled /></td>
 									<td><input asp-for="@Model.Items[i].EntryDate" type="text" value="@Model.Items[i].EntryDate" class="form-control" name="Items[@Model.Items[i].EntryId].EntryDate" disabled/></td>
-									<td><input asp-for="@Model.Items[i].Notes" type="text" value="@Model.Items[i].Notes" class="form-control" name="Items[@Model.Items[i].EntryId].Notes" /></td>
+									<td><input asp-for="@Model.Items[i].Notes" type="text" value="@Model.Items[i].Notes" class="form-control" name="Items[@Model.Items[i].EntryId].Notes"  maxlength="255" /></td>
 									<td>
 										<div class="row btn-group flex-nowrap">
 											<button type="submit" asp-page-handler="UpdateTimeEntry" asp-route-id="@Model.Items[i].EntryId" class="btn btn-success"><i class="bi-check-circle"></i></button>
