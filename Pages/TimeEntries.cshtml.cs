@@ -2,6 +2,7 @@ using AikaHalli.Data;
 using AikaHalli.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Diagnostics;
 using System.Security.Claims;
 
 namespace AikaHalli.Pages
@@ -24,6 +25,9 @@ namespace AikaHalli.Pages
 		[BindProperty]
 		public List<int> TaskIdList { get; set; }
 
+		[BindProperty]
+		public List<UserTask> TaskList { get; set; }
+
 		public TimeEntry UpdatedTimeEntry { get; set; }
 
 		public string UserId { get; set; }
@@ -35,6 +39,7 @@ namespace AikaHalli.Pages
 			{
 				UserId = GetUserId();
 				Items = await _aikaHalliService.GetAllUserTimeEntries(UserId);
+				TaskList = await _aikaHalliService.GetAllUserTasks(UserId);
 				TaskIdList = await _aikaHalliService.GetAllUserTasksIdList(UserId);
 			}
 			catch (Exception)

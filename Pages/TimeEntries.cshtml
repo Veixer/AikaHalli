@@ -16,7 +16,7 @@
 					<thead>
 						<tr>
 							<th>Aikaleiman Id</th>
-							<th>Tehtävän Id/(Nimi)</th>
+							<th>Tehtävän Nimi</th>
 							<th>Aikaleiman alkamisaika (Muodossa: "pp.kk.vvvv tt.mm.ss")</th>
 							<th>Aikaleiman loppumisaika (Muodossa: "pp.kk.vvvv tt.mm.ss")</th>
 							<th>Aikaleiman kesto (minuuteissa, pyöristetty)</th>
@@ -28,7 +28,8 @@
 					<tbody>
 						<tr>
 							<td></td>
-							<td><select asp-for="NewItem.TaskId" asp-items="@Model.TaskIdList.Select(x => new SelectListItem{Text = x.ToString()})"><option>Valitse</option></select></td>
+							@*<td><select asp-for="NewItem.TaskId" asp-items="@Model.TaskIdList.Select(x => new SelectListItem{Text = x.ToString()})"><option>Valitse</option></select></td>*@
+							<td><select asp-for="NewItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})" ></select></td>
 							<td><input type="datetime-local" asp-for="NewItem.StartTime" class="form-control" /></td>
 							<td><input type="datetime-local" asp-for="NewItem.EndTime" class="form-control" /></td>
 							<td></td>
@@ -42,7 +43,15 @@
 							{
 								<tr>
 									<td>@Model.Items[i].EntryId</td>
-									<td><input asp-for="@Model.Items[i].TaskId" type="text" value="@Model.Items[i].TaskId" class="form-control" name="Items[@Model.Items[i].EntryId].TaskId" /></td>
+									@*<td><input asp-for="@Model.Items[i].TaskId" type="text" value="@Model.Items[i].TaskId" class="form-control" name="Items[@Model.Items[i].EntryId].TaskId" /></td>*@
+									<td>
+										<select asp-for="@Model.Items[i].TaskId" name="Items[@Model.Items[i].EntryId].TaskId">
+											@foreach (var task in Model.TaskList)
+											{
+												<!option value="@task.TaskId" @(Model.Items[i].TaskId == task.TaskId ? "selected" : "")>@task.TaskName</!option>
+											}
+										</select>
+									</td>
 									<td><input asp-for="@Model.Items[i].StartTime" type="text" value="@Model.Items[i].StartTime" class="form-control" name="Items[@Model.Items[i].EntryId].StartTime" /></td>
 									<td><input asp-for="@Model.Items[i].EndTime" type="text" value="@Model.Items[i].EndTime" class="form-control" name="Items[@Model.Items[i].EntryId].EndTime" /></td>
 									<td><input asp-for="@Model.Items[i].Duration" type="text" value="@Model.Items[i].Duration" class="form-control" name="Items[@Model.Items[i].EntryId].Duration" disabled /></td>

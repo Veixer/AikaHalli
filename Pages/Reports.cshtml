@@ -15,9 +15,9 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Tehtävän Id</th>
-							<th>Tehtävään käytetty aika (minuutteina)</th>
-							<th>Tehtävään käytetty aika (hh:mm:ss)</th>
+							<th>Tehtävän Id / Nimi</th>
+							<th>Käytetty aika (minuutteina)</th>
+							<th>Käytetty aika (hh:mm:ss)</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -26,7 +26,7 @@
 							foreach (var task in Model.Items)
 							{
 								<tr>
-									<td>@task.TaskId</td>
+									<td>@task.TaskId / @Model.TaskList.Where(x => x.TaskId == task.TaskId).FirstOrDefault().TaskName</td>
 									<td>@task.Duration</td>
 									<td>@Model.ParseMinutesToTime(task.Duration)</td>
 								</tr>

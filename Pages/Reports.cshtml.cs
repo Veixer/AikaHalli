@@ -21,6 +21,9 @@ namespace AikaHalli.Pages
 		[BindProperty]
 		public List<TaskDuration> Items { get; set; }
 
+		[BindProperty]
+		public List<UserTask> TaskList { get; set; }
+
 		public string UserId { get; set; }
 
 		public async Task<IActionResult> OnGetAsync()
@@ -30,6 +33,7 @@ namespace AikaHalli.Pages
 			{
 				UserId = GetUserId();
 				Items = await _aikaHalliService.GetUserTasksAndDurations(UserId);
+				TaskList = await _aikaHalliService.GetAllUserTasks(UserId);
 			}
 			catch (Exception)
 			{
