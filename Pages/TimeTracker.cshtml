@@ -49,7 +49,7 @@
 							<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" asp-for="NewItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})"></select>
 						</div>
 						<div class="row">
-							<label asp-for="NewItem.Notes">Muistiinpanot</label>
+							<label asp-for="NewItem.Notes">Lisätiedot</label>
 							<input asp-for="NewItem.Notes" type="text" value="" class="form-control" name="NewItem.Notes" />
 						</div>
 						
@@ -64,7 +64,7 @@
 						<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" asp-for="CurrentItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})" disabled></select>
 					</div>
 					<div class="row">
-						<label asp-for="CurrentItem.Notes">Muistiinpanot</label>
+						<label asp-for="CurrentItem.Notes">Lisätiedot</label>
 						<input asp-for="CurrentItem.Notes" type="text" value="@Model.CurrentItem.Notes" class="form-control" name="Items[@Model.CurrentItem.TaskId].TaskId" disabled />
 					</div>
 					
