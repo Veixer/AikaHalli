@@ -40,13 +40,11 @@
 										<div class="row btn-group flex-nowrap">
 											<button type="submit" asp-page-handler="UpdateUserTask" asp-route-id="@Model.Items[i].TaskId" class="btn btn-success"><i class="bi-check-circle"></i></button>
 											<button type="submit" asp-page-handler="DeleteUserTask" asp-route-id="@Model.Items[i].TaskId" class="btn btn-danger"><i class="bi-trash3"></i></button>
-										</div>
-										
+										</div>										
 									</td>
 								</tr>
 							}
-						}
-						
+						}						
 					</tbody>
 				</table>
 			</form>

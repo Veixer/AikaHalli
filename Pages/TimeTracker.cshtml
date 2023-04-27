@@ -44,8 +44,6 @@
 					{
 						<div class="row">
 							<label asp-for="NewItem.TaskId">Tehtävän Id</label>
-							@*<select asp-for="NewItem.TaskId" asp-items="@Model.TaskIdList.Select(x => new SelectListItem{Text = x.ToString()})"></select>*@
-							@*<select asp-for="NewItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})"></select>*@
 							<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" asp-for="NewItem.TaskId" asp-items="@Model.TaskList.Select(x => new SelectListItem{Value = x.TaskId.ToString(), Text = x.TaskName.ToString()})"></select>
 						</div>
 						<div class="row">

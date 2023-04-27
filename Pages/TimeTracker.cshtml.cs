@@ -27,9 +27,6 @@ namespace AikaHalli.Pages
 		[BindProperty]
 		public List<UserTask> TaskList { get; set; }
 
-		[BindProperty]
-		public List<int> TaskIdList { get; set; }
-
 		public string UserId { get; set; }
 
 		public async Task<IActionResult> OnGetAsync()
@@ -40,7 +37,6 @@ namespace AikaHalli.Pages
 				UserId = GetUserId();
 				Items = await _aikaHalliService.GetAllUserTimeEntriesToday(UserId);
 				TaskList = await _aikaHalliService.GetAllUserTasks(UserId);
-				TaskIdList = await _aikaHalliService.GetAllUserTasksIdList(UserId);
 				CurrentItem = await _aikaHalliService.GetCurrentTimeEntry(UserId);
 			}
 			catch (Exception)
@@ -87,7 +83,6 @@ namespace AikaHalli.Pages
 			}
 			catch (Exception)
 			{
-
 				throw;
 			}
 			return RedirectToPage("TimeTracker");
